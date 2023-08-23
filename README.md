@@ -1,8 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js Portfolio with Sanity.io
+
+[![Next.js](https://img.shields.io/badge/Next.js-13-blue)](https://nextjs.org/)
+[![Sanity.io](https://img.shields.io/badge/Sanity.io-CMS-green)](https://www.sanity.io/)
+
+## Overview
+
+This is a sleek portfolio website built using Next.js 13 with app router and Sanity.io for content management. Showcase your skills, projects, and blogs in a modern and responsive design.
+
+## Features
+
+- Next.js 13 for fast rendering and optimal performance
+- App router for client-side navigation
+- Sanity.io for easy content management
+- Responsive design
+- SEO-friendly
+
+## Prerequisites
+
+- Node.js >= 14.x
+- npm >= 6.x
+- Sanity CLI (Optional)
 
 ## Getting Started
 
-First, run the development server:
+First, clone the repository:
+
+```bash
+git clone https://github.com/musebe/Next-sanity-portfolio.git
+cd your-nextjs-portfolio
+```
+
+Then, install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+### Development
+
+To start the development server:
 
 ```bash
 npm run dev
@@ -14,21 +54,67 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To build the project for production:
 
-## Learn More
+```bash
+npm run build
+# or
+yarn build
+# or
+pnpm build
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Running in Production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To start the production server:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+npm start
+# or
+yarn start
+# or
+pnpm start
+```
 
-## Deploy on Vercel
+## Sanity.io Setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+If you're using Sanity.io for content management, make sure to set up your Sanity project:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Install Sanity CLI:
+
+```bash
+npm install -g @sanity/cli
+```
+
+2. Initialize a new Sanity project:
+
+```bash
+sanity init
+```
+
+3. Deploy the GraphQL schema:
+
+```bash
+sanity graphql deploy
+```
+
+4. Add your Sanity project ID and dataset to `.env`:
+
+```env
+SANITY_PROJECT_ID=your_project_id
+SANITY_DATASET=your_dataset_name
+```
+
+## Deploy
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/your-nextjs-portfolio)
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
