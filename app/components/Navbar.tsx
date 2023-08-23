@@ -3,8 +3,8 @@
 import { Disclosure } from '@headlessui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
 import Themebutton from './Themebutton';
-
 
 export default function Navbar() {
   let pathname = usePathname() || '/';
@@ -17,9 +17,13 @@ export default function Navbar() {
               <div className='flex justify-between w-full'>
                 <div className='flex items-center'>
                   <Link href='/'>
-                    <h1 className='text-2xl font-medium'>
+                    <motion.h1 // Add Framer Motion here
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      className='text-2xl font-medium cursor-pointer'
+                    >
                       <span className='text-amber-500'>Musebecodes</span>
-                    </h1>
+                    </motion.h1>
                   </Link>
                 </div>
 
@@ -33,18 +37,28 @@ export default function Navbar() {
                         : 'border-transparent text-gray-500 dark:text-gray-300 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
                     }`}
                   >
-                    Home
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      Home
+                    </motion.div>
                   </Link>
                   <Link
-                    href='/guestbook'
+                    href='/blog'
                     prefetch
                     className={`${
-                      pathname === '/guestbook'
+                      pathname === '/blog'
                         ? 'border-teal-500 dark:text-white h-full inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
                         : 'border-transparent text-gray-500 dark:text-gray-300 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
                     }`}
                   >
-                    Blog
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      Blog
+                    </motion.div>
                   </Link>
                   <Link
                     href='/projects'
@@ -55,7 +69,12 @@ export default function Navbar() {
                         : 'border-transparent text-gray-500 dark:text-gray-300 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
                     }`}
                   >
-                    Projects
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      Projects
+                    </motion.div>
                   </Link>
                   <Themebutton />
                 </div>
@@ -116,10 +135,10 @@ export default function Navbar() {
                 Home
               </Link>
               <Link
-                href='/guestbook'
+                href='/blog'
                 prefetch
                 className={`${
-                  pathname == '/guestbook'
+                  pathname == '/blog'
                     ? 'bg-teal-50 border-teal-500 text-teal-500 block pl-3 pr-4 py-2 border-l-4 text-base font-medium dark:bg-gray-800'
                     : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-teal-500 block pl-3 pr-4 py-2 dark:hover:bg-gray-700 border-l-4 text-base font-medium dark:text-white'
                 } `}
