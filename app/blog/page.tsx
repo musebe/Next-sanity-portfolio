@@ -8,9 +8,9 @@ const Blog = async () => {
 //   console.log('Fetched posts:', data);
   return (
     <div className='divide-y divide-gray-200 dark:divide-gray-700'>
-      <div className='space-y-2 pt-6 pb-8 md:space-y-5'>
-        <h1 className='text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl sm:leading-10 md:text-6xl md:leading-14'>
-          All Posts
+      <div className='flex justify-center items-center pt-6 pb-8 md:pt-8 md:pb-10'>
+        <h1 className='text-3xl md:text-4xl font-extrabold leading-9 tracking-tight text-amber-500 dark:text-gray-100 sm:leading-10 md:leading-12'>
+          📖 Tech Tales.
         </h1>
       </div>
       <ul className='space-y-8'>
