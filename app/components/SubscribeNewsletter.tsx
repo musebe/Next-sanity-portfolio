@@ -22,7 +22,8 @@ function SubscribeNewsletter() {
         <button
           type='submit'
           aria-label='Subscribe Button'
-          className='bg-blue-500 text-white p-2 rounded hover:bg-blue-600'
+          className='bg-blue-700 text-white p-2 rounded hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400'
+          role='button'
         >
           ✅ Subscribe Now
         </button>

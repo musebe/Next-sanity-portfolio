@@ -18,7 +18,9 @@ export default function Themebutton() {
   return (
     <button
       onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-      className='bg-teal-500/30 p-2 rounded-lg text-teal-500'
+      className='bg-teal-500/30 p-2 rounded-lg text-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-400'
+      aria-label='Toggle theme'
+      role='button'
     >
       {resolvedTheme === 'dark' ? (
         <svg
