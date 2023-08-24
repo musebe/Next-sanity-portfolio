@@ -125,6 +125,8 @@ export default function Navbar() {
             <div className='pt-2 pb-3 space-y-1'>
               <Link
                 href='/'
+                rel='noopener noreferrer'
+                aria-label='Button'
                 prefetch
                 className={`${
                   pathname == '/'
@@ -136,6 +138,8 @@ export default function Navbar() {
               </Link>
               <Link
                 href='/blog'
+                rel='noopener noreferrer'
+                aria-label='Button'
                 prefetch
                 className={`${
                   pathname == '/blog'
@@ -147,6 +151,8 @@ export default function Navbar() {
               </Link>
               <Link
                 href='/projects'
+                rel='noopener noreferrer'
+                aria-label='Button'
                 prefetch
                 className={`${
                   pathname == '/projects'
