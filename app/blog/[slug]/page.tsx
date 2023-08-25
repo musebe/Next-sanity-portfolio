@@ -54,11 +54,6 @@ export default async function SlugPage({
 
   return (
     <div className='flex flex-col md:flex-row'>
-      {/* Table of Contents on Mobile */}
-      <div className='w-full md:hidden p-4 mb-4'>
-        <TableOfContents tocItems={tocItems} readingEmojis={readingEmojis} />
-      </div>
-
       {/* Main Content */}
       <div className='w-full md:w-3/4 md:pr-8'>
         <div className='xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700'>
@@ -95,6 +90,13 @@ export default async function SlugPage({
                   ))}
                 </div>
               </div>
+            </div>
+            {/* Table of Contents on Mobile */}
+            <div className='w-full md:hidden p-4 mb-4'>
+              <TableOfContents
+                tocItems={tocItems}
+                readingEmojis={readingEmojis}
+              />
             </div>
           </header>
           <div className='divide-y divide-gray-200 pb-7 dark:divide-gray-700 xl:divide-y-0'>
