@@ -9,43 +9,43 @@ export default {
       title: 'Title',
     },
     {
-  name: 'mainImage',
-  title: 'Main Image',
-  type: 'image',
-  options: {
-    hotspot: true // Enables a hotspot for cropping the image
-  },
-  fieldsets: [
-    {
-      name: 'extraFields',
-      title: 'Extra Fields',
+      name: 'mainImage',
+      title: 'Main Image',
+      type: 'image',
       options: {
-        collapsible: true,
-        collapsed: true
-      }
+        hotspot: true // Enables a hotspot for cropping the image
+      },
+      fieldsets: [
+        {
+          name: 'extraFields',
+          title: 'Extra Fields',
+          options: {
+            collapsible: true,
+            collapsed: true
+          }
+        }
+      ],
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative Text',
+          fieldset: 'extraFields'
+        },
+        {
+          name: 'caption',
+          type: 'string',
+          title: 'Caption'
+        }
+      ]
     }
-  ],
-  fields: [
-    {
-      name: 'alt',
-      type: 'string',
-      title: 'Alternative Text',
-      fieldset: 'extraFields'
-    },
-    {
-      name: 'caption',
-      type: 'string',
-      title: 'Caption'
-    }
-  ]
-}
-,
+    ,
     {
       name: 'overview',
       type: 'string',
       title: 'Overview',
     },
-   {
+    {
       name: 'categories',
       title: 'Categories',
       type: 'array',

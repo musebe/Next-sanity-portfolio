@@ -2,9 +2,11 @@ import Link from 'next/link';
 import { Post } from '../lib/interface';
 import { fetchAllPosts } from '../lib/fetchData';
 
+
+export const revalidate = 60;
+
 const Blog = async () => {
   const data = (await fetchAllPosts()) as Post[];
-
 //   console.log('Fetched posts:', data);
   return (
     <div className='divide-y divide-gray-200 dark:divide-gray-700'>
@@ -37,7 +39,7 @@ const Blog = async () => {
                     ))}
                   </div>
                 </div>
-                <Link href={`/post/${post.slug.current}`} prefetch>
+                <Link href={`/blog/${post.slug.current}`} prefetch>
                   <div className='space-y-2 hover:text-indigo-600 dark:hover:text-indigo-400'>
                     <h3 className='text-3xl font-bold leading-8 tracking-tight text-gray-900 dark:text-gray-100 mb-2 hover:text-amber-500 dark:hover:text-amber-500'>
                       {post.title}
