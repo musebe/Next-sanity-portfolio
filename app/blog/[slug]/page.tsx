@@ -55,7 +55,7 @@ export default async function SlugPage({
                 </h1>
                 {/* Main Image */}
                 <Image
-                  src={urlFor(data.mainImage.asset._ref).url()}
+                  src={urlFor(data.mainImage).url()}
                   alt={data.mainImage.alt}
                   className='rounded-lg mb-4'
                   width={1400}
