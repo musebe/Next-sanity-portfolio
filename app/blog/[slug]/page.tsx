@@ -53,9 +53,9 @@ export default async function SlugPage({
   const readingEmojis = ['📚', '📖', '🎓', '🖋️', '📝']; // Add more emojis as needed
 
   return (
-    <div className='flex flex-col md:flex-row'>
+    <div className='flex flex-col md:flex-row container mx-auto'>
       {/* Main Content */}
-      <div className='w-full md:w-3/4 md:pr-8'>
+      <div className='w-full md:w-3/4 md:pr-8 mx-auto'>
         <div className='xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700'>
           <header className='pt-6 xl:pb-6'>
             <div className='space-y-4 text-center'>
@@ -92,7 +92,7 @@ export default async function SlugPage({
               </div>
             </div>
             {/* Table of Contents on Mobile */}
-            <div className='w-full md:hidden p-4 mb-4'>
+            <div className='block lg:hidden w-full p-4 mb-4'>
               <TableOfContents
                 tocItems={tocItems}
                 readingEmojis={readingEmojis}
@@ -111,7 +111,7 @@ export default async function SlugPage({
       </div>
 
       {/* Table of Contents on Desktop */}
-      <div className='hidden md:block md:w-1/4 p-4 md:pt-32'>
+      <div className='hidden xl:block xl:w-1/4 p-4 xl:pt-32'>
         <TableOfContents tocItems={tocItems} readingEmojis={readingEmojis} />
       </div>
     </div>
