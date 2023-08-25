@@ -1,3 +1,6 @@
+// Your main component file
+
+import TableOfContents from '@/app/components/TableOfContent';
 import { Post } from '@/app/lib/interface';
 import { client } from '@/app/lib/sanity';
 import { urlFor } from '@/app/lib/sanityImageUrl';
@@ -6,13 +9,9 @@ import Image from 'next/image';
 
 async function getData(slug: string) {
   const query = `*[_type == "post" && slug.current == "${slug}"][0]`;
-
   const data = await client.fetch(query);
-  //console.log('Fetched Data:', data); // Log fetched data
   return data;
 }
-
-export const revalidate = 60;
 
 export default async function SlugPage({
   params,
@@ -20,25 +19,6 @@ export default async function SlugPage({
   params: { slug: string };
 }) {
   const data = (await getData(params.slug)) as Post;
-
-  // Log the content to see its structure
-  console.log('Content Data:', data.content);
-
-  // Extract headings from PortableText data
-  const headings = data.content.filter(
-    (block) =>
-      block._type === 'block' && ['h1', 'h2', 'h3'].includes(block.style)
-  );
-
-  console.log('Extracted Headings:', headings); // Log extracted headings
-
-  const tocItems = headings.map((heading, index) => ({
-    text: heading.children[0].text,
-    anchor: `heading-${index}`,
-    style: heading.style,
-  }));
-
-  // console.log('TOC Items:', tocItems); // Log TOC items
 
   const PortableTextComponent = {
     types: {
@@ -52,44 +32,31 @@ export default async function SlugPage({
           priority
         />
       ),
-      block: ({ value }: { value: any }, index: number) => {
-        if (value && value.children && value.children[0]) {
-          if (value.style === 'h1') {
-            return <h1 id={`heading-${index}`}>{value.children[0].text}</h1>;
-          }
-          if (value.style === 'h2') {
-            return <h2 id={`heading-${index}`}>{value.children[0].text}</h2>;
-          }
-          if (value.style === 'h3') {
-            return <h3 id={`heading-${index}`}>{value.children[0].text}</h3>;
-          }
-        }
-        // Handle other block types as needed
-        return null;
-      },
     },
   };
 
+  // Extract headings from PortableText data
+  const headings = data
+    ? data.content.filter(
+        (block) =>
+          block._type === 'block' && ['h1', 'h2', 'h3'].includes(block.style)
+      )
+    : [];
+
+  // Generate Table of Contents items
+  const tocItems = headings.map((heading, index) => ({
+    text: heading.children[0].text,
+    anchor: `heading-${index}`,
+    style: heading.style,
+  }));
+
+  const readingEmojis = ['📚', '📖', '🎓', '🖋️', '📝']; // Add more emojis as needed
 
   return (
     <div className='flex flex-col md:flex-row'>
       {/* Table of Contents on Mobile */}
       <div className='w-full md:hidden p-4 mb-4'>
-        <h2 className='text-lg font-bold text-amber-500'>Table of Contents</h2>
-       <ul>
-  {tocItems.map((item, index) => (
-    <li key={index} className={`text-${item.style}`}>
-      <a 
-        href={`#${item.anchor}`} 
-        className='no-underline hover:underline'
-        style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'}}
-      >
-        {item.text.length > 30 ? `${item.text.substring(0, 30)}...` : item.text}
-      </a>
-    </li>
-  ))}
-</ul>
-
+        <TableOfContents tocItems={tocItems} readingEmojis={readingEmojis} />
       </div>
 
       {/* Main Content */}
@@ -143,14 +110,7 @@ export default async function SlugPage({
 
       {/* Table of Contents on Desktop */}
       <div className='hidden md:block md:w-1/4 p-4 md:pt-32'>
-        <h2 className='text-lg font-bold text-amber-500'>Table of Contents</h2>
-        <ul>
-          {tocItems.map((item, index) => (
-            <li key={index}>
-              <a href={`#heading-${index}`}>{item.text}</a>
-            </li>
-          ))}
-        </ul>
+        <TableOfContents tocItems={tocItems} readingEmojis={readingEmojis} />
       </div>
     </div>
   );
