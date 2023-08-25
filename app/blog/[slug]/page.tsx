@@ -1,5 +1,6 @@
 // Your main component file
 
+import SubscribeNewsletter from '@/app/components/SubscribeNewsletter';
 import TableOfContents from '@/app/components/TableOfContent';
 import { Post } from '@/app/lib/interface';
 import { client } from '@/app/lib/sanity';
@@ -32,6 +33,30 @@ export default async function SlugPage({
           priority
         />
       ),
+      block: ({ value }: { value: any }) => {
+        if (value.style === 'h1') {
+          return (
+            <h1 className='text-blue-600 dark:text-blue-300'>
+              {value.children[0].text}
+            </h1>
+          );
+        }
+        if (value.style === 'h2') {
+          return (
+            <h2 className='text-green-600 dark:text-green-300'>
+              {value.children[0].text}
+            </h2>
+          );
+        }
+        if (value.style === 'h3') {
+          return (
+            <h3 className='text-purple-600 dark:text-purple-300'>
+              {value.children[0].text}
+            </h3>
+          );
+        }
+        return <p>{value.children[0].text}</p>;
+      },
     },
   };
 
@@ -113,6 +138,31 @@ export default async function SlugPage({
       {/* Table of Contents on Desktop */}
       <div className='hidden xl:block xl:w-1/4 p-4 xl:pt-32'>
         <TableOfContents tocItems={tocItems} readingEmojis={readingEmojis} />
+        {/* Space between TOC and Subscribe Newsletter */}
+        <div className='mt-8'></div>
+        {/* Subscribe Newsletter on Laptops and other big screens */}
+        <div className='border-2 rounded-lg border-opacity-50 border-amber-500 p-6 shadow-md'>
+          <SubscribeNewsletter
+            heading='📝 Loved This Article?'
+            headingSize='text-xl'
+            paragraph='Get more articles like this straight into your inbox 📩'
+            paragraphSize='text-xs'
+            buttonText='Subscribe'
+          />
+        </div>
+      </div>
+
+      {/* Subscribe Newsletter on Mobile */}
+      <div className='xl:hidden w-full p-4'>
+        <div className='border-2 rounded-lg border-opacity-50 border-amber-500 p-6 shadow-md'>
+          <SubscribeNewsletter
+            heading='📝 Loved This Article?'
+            headingSize='text-xl'
+            paragraph='Get more articles like this straight into your inbox 📩'
+            paragraphSize='text-xs'
+            buttonText='Subscribe'
+          />
+        </div>
       </div>
     </div>
   );

@@ -95,7 +95,13 @@ export default function Home() {
       </div>
       {/* SubscribeNewsletter component in its own div */}
       <div className='xl:col-span-3 mt-10'>
-        <SubscribeNewsletter />
+        <SubscribeNewsletter
+          heading='📭 Subscribe to My Newsletter 🚀'
+          headingSize='text-2xl'
+          paragraph='Stay updated with the latest articles, tips, and tutorials on Full Stack Development, Technical Writing, and Developer Advocacy! 🚀'
+          paragraphSize='text-sm'
+          buttonText='Sign Me Up !'
+        />
       </div>
     </div>
   );

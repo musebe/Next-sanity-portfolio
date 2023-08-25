@@ -1,12 +1,15 @@
-function SubscribeNewsletter() {
+function SubscribeNewsletter({
+  heading = '💌 Subscribe to My Newsletter 💌',
+  headingSize = 'text-2xl',
+  paragraph = 'Stay updated with the latest articles, tips, and tutorials on Full Stack Development, Technical Writing, and Developer Advocacy! 🚀',
+  paragraphSize = 'text-base',
+  buttonText = '✅ Subscribe Now',
+}) {
   return (
-    <div className='bg-white text-black dark:bg-[#090908] dark:text-white h-full selection:bg-gray-50 dark:selection:bg-gray-800 p-8 rounded-lg text-center border-2 border-gray-300 dark:border-gray-600'>
-      <h2 className='text-2xl font-bold mb-4'>
-        💌 Subscribe to My Newsletter 💌
-      </h2>
-      <p className='text-gray-700 dark:text-gray-300 mb-4'>
-        Stay updated with the latest articles, tips, and tutorials on Full Stack
-        Development, Technical Writing, and Developer Advocacy! 🚀
+    <div className='bg-white text-black dark:bg-[#090908] dark:text-white h-full selection:bg-gray-50 dark:selection:bg-gray-800 p-8 rounded-lg text-center'>
+      <h2 className={`${headingSize} font-bold mb-4`}>{heading}</h2>
+      <p className={`text-gray-700 dark:text-gray-300 mb-4 ${paragraphSize}`}>
+        {paragraph}
       </p>
       <form
         aria-label='Subscribe to Newsletter Form'
@@ -22,10 +25,10 @@ function SubscribeNewsletter() {
         <button
           type='submit'
           aria-label='Subscribe Button'
-          className='bg-blue-700 text-white p-2 rounded hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400'
+          className='bg-[#f97316] text-white p-4 rounded-full hover:bg-[#d96012] focus:outline-none focus:ring-2 focus:ring-[#ff9f4a]'
           role='button'
         >
-          ✅ Subscribe Now
+          {buttonText}
         </button>
       </form>
     </div>
