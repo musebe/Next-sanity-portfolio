@@ -5,8 +5,8 @@ import Head from 'next/head';
 import SubscribeNewsletter from './components/SubscribeNewsletter';
 
 export default function Home() {
-  const ogImageUrl = '/og-image.jpg'; // Located directly inside the public folder
-  
+  const ogImageUrl = '/me.jpg'; // Located directly inside the public folder
+
   return (
     <div className='divide-y divide-gray-100 dark:divide-gray-700'>
       <Head>
