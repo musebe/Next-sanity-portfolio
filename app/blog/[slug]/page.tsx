@@ -1,5 +1,6 @@
 // Your main component file
 
+import ReadingProgress from '@/app/components/ReadingProgress';
 import SubscribeNewsletter from '@/app/components/SubscribeNewsletter';
 import TableOfContents from '@/app/components/TableOfContent';
 import { Post } from '@/app/lib/interface';
@@ -107,6 +108,7 @@ export default async function SlugPage({
       </Head>
       {/* Main Content */}
       <div className='w-full md:w-3/4 md:pr-8 mx-auto'>
+        <ReadingProgress />
         <div className='xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700'>
           <header className='pt-6 xl:pb-6'>
             <div className='space-y-4 text-center'>
