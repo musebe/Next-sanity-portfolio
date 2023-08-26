@@ -6,3 +6,12 @@
 html {
   scroll-behavior: smooth;
 }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .tablet\:block {
+    display: block !important;
+  }
+  .tablet\:hidden {
+    display: none !important;
+  }
+}

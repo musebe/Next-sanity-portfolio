@@ -168,8 +168,8 @@ export default async function SlugPage({
         <TableOfContents tocItems={tocItems} readingEmojis={readingEmojis} />
         {/* Space between TOC and Subscribe Newsletter */}
         <div className='mt-8'></div>
-        {/* Subscribe Newsletter on Laptops and other big screens */}
-        <div className='border-2 rounded-lg border-opacity-50 border-amber-500 p-6 shadow-md'>
+        {/* Subscribe Newsletter on Desktop */}
+        <div className='hidden lg:block border-2 rounded-lg border-opacity-50 border-amber-500 p-6 shadow-md'>
           <SubscribeNewsletter
             heading='📝 Loved This Article?'
             headingSize='text-xl'
@@ -180,8 +180,8 @@ export default async function SlugPage({
         </div>
       </div>
 
-      {/* Subscribe Newsletter on Mobile */}
-      <div className='xl:hidden w-full p-4'>
+      {/* Subscribe Newsletter on Mobile and Tablets */}
+      <div className='md:hidden lg:hidden w-full p-4'>
         <div className='border-2 rounded-lg border-opacity-50 border-amber-500 p-6 shadow-md'>
           <SubscribeNewsletter
             heading='📝 Loved This Article?'
