@@ -118,3 +118,46 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+
+
+// Log each content item for debugging
+  // data.content.forEach((contentItem, index) => {
+  //   console.log(`Content Item ${index}:`, contentItem);
+  // });
+
+  // function logChildrenOfContentItems(contentItems) {
+  //   contentItems.forEach((contentItem, index) => {
+  //     console.log(`Content Item ${index}:`);
+  //     contentItem.children.forEach((child, childIndex) => {
+  //       console.log(`  Child ${childIndex}:`, child);
+  //     });
+  //     console.log('');
+  //   });
+  // }
+
+  // // Assuming you have an array of content items called 'data.content'
+  // logChildrenOfContentItems(data.content);
+
+   <p>
+            {value.children.map((child, index) => {
+              if (child.marks && child.marks.includes('code')) {
+                const codeText = child.text;
+                console.log('Original codeText:', codeText); // Debugging step
+
+                // Remove all backticks
+                const cleanedCodeText = codeText.replace(/`/g, '');
+                console.log('Cleaned codeText:', cleanedCodeText); // Debugging step
+
+                return (
+                  <code
+                    key={index}
+                    className='bg-slate-900 dark:bg-indigo-200 text-white dark:text-neutral-900 rounded p-6 w-full inline-block overflow-x-auto'
+                  >
+                    {cleanedCodeText}
+                  </code>
+                );
+              }
+              return child.text;
+            })}
+          </p>

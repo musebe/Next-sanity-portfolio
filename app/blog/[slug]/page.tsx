@@ -12,9 +12,19 @@ import Image from 'next/image';
 
 async function getData(slug: string) {
   const query = `*[_type == "post" && slug.current == "${slug}"][0]`;
-  const data = await client.fetch(query);
+  const data = await client.fetch(query, {
+    next: {
+      revalidate: 10, // use 0 to opt out of using cache (Note: this won't have any effect here)
+    },
+  });
+
+  // console.log('Data fetched:', data); // Log the fetched data
   return data;
 }
+
+const cleanCodeText = (text: string) => {
+  return text.replace(/`/g, '');
+};
 
 export default async function SlugPage({
   params,
@@ -22,7 +32,7 @@ export default async function SlugPage({
   params: { slug: string };
 }) {
   const data = (await getData(params.slug)) as Post;
-  // console.log(data);
+
   const PortableTextComponent = {
     types: {
       image: ({ value }: { value: any }) => (
@@ -38,7 +48,6 @@ export default async function SlugPage({
       block: ({ value }: { value: any }) => {
         const text = value.children[0].text;
         const anchor = `heading-${text.replace(/\s+/g, '-').toLowerCase()}`; // Create an anchor ID
-
         if (value.style === 'h1') {
           return (
             <h1 id={anchor} className='text-blue-600 dark:text-blue-300'>
@@ -60,7 +69,31 @@ export default async function SlugPage({
             </h3>
           );
         }
-        return <p>{text}</p>;
+
+        return (
+          <p>
+            {value.children.map((child, index) => {
+              if (child.marks && child.marks.includes('code')) {
+                const codeText = child.text;
+                console.log('Original codeText:', codeText); // Debugging step
+
+                // Remove all backticks
+                const cleanedCodeText = codeText.replace(/`/g, '');
+                console.log('Cleaned codeText:', cleanedCodeText); // Debugging step
+
+                return (
+                  <code
+                    key={index}
+                    className='bg-slate-900 dark:bg-slate-900 text-white dark:text-neutral-90 rounded p-6 w-full inline-block overflow-x-auto'
+                  >
+                    {cleanedCodeText}
+                  </code>
+                );
+              }
+              return child.text;
+            })}
+          </p>
+        );
       },
     },
   };
