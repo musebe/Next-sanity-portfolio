@@ -101,7 +101,7 @@ export default async function SlugPage({
         <meta property='og:image:height' content='630' />
         <link
           rel='canonical'
-          href={`https://www.musebecodes.dev/${params.slug}`}
+          href={`https://next-sanity-portfolio-zeta.vercel.app/${params.slug}`}
         />
         <html lang='en' />
       </Head>
