@@ -6,6 +6,7 @@ import { Post } from '@/app/lib/interface';
 import { client } from '@/app/lib/sanity';
 import { urlFor } from '@/app/lib/sanityImageUrl';
 import { PortableText } from '@portabletext/react';
+import Head from 'next/head';
 import Image from 'next/image';
 
 async function getData(slug: string) {
@@ -20,7 +21,7 @@ export default async function SlugPage({
   params: { slug: string };
 }) {
   const data = (await getData(params.slug)) as Post;
-
+  // console.log(data);
   const PortableTextComponent = {
     types: {
       image: ({ value }: { value: any }) => (
@@ -34,28 +35,31 @@ export default async function SlugPage({
         />
       ),
       block: ({ value }: { value: any }) => {
+        const text = value.children[0].text;
+        const anchor = `heading-${text.replace(/\s+/g, '-').toLowerCase()}`; // Create an anchor ID
+
         if (value.style === 'h1') {
           return (
-            <h1 className='text-blue-600 dark:text-blue-300'>
-              {value.children[0].text}
+            <h1 id={anchor} className='text-blue-600 dark:text-blue-300'>
+              {text}
             </h1>
           );
         }
         if (value.style === 'h2') {
           return (
-            <h2 className='text-green-600 dark:text-green-300'>
-              {value.children[0].text}
+            <h2 id={anchor} className='text-green-600 dark:text-green-300'>
+              {text}
             </h2>
           );
         }
         if (value.style === 'h3') {
           return (
-            <h3 className='text-purple-600 dark:text-purple-300'>
-              {value.children[0].text}
+            <h3 id={anchor} className='text-purple-600 dark:text-purple-300'>
+              {text}
             </h3>
           );
         }
-        return <p>{value.children[0].text}</p>;
+        return <p>{text}</p>;
       },
     },
   };
@@ -69,16 +73,38 @@ export default async function SlugPage({
     : [];
 
   // Generate Table of Contents items
-  const tocItems = headings.map((heading, index) => ({
+  const tocItems = headings.map((heading) => ({
     text: heading.children[0].text,
-    anchor: `heading-${index}`,
+    anchor: `heading-${heading.children[0].text
+      .replace(/\s+/g, '-')
+      .toLowerCase()}`,
     style: heading.style,
   }));
 
   const readingEmojis = ['📚', '📖', '🎓', '🖋️', '📝']; // Add more emojis as needed
+  const ogImageUrl = urlFor(data.mainImage).url(); // Get the URL for the main image
 
   return (
     <div className='flex flex-col md:flex-row container mx-auto'>
+      <Head>
+        <title>{data.title}</title>
+        <meta name='description' content={data.overview} />
+        <meta property='og:title' content={data.title} />
+        <meta property='og:description' content={data.overview} />
+        <meta property='og:image' content={ogImageUrl} />
+        <meta property='og:type' content='article' />
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:title' content={data.title} />
+        <meta name='twitter:description' content={data.overview} />
+        <meta name='twitter:image' content={ogImageUrl} />
+        <meta property='og:image:width' content='1200' />
+        <meta property='og:image:height' content='630' />
+        <link
+          rel='canonical'
+          href={`https://www.musebecodes.dev/${params.slug}`}
+        />
+        <html lang='en' />
+      </Head>
       {/* Main Content */}
       <div className='w-full md:w-3/4 md:pr-8 mx-auto'>
         <div className='xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700'>

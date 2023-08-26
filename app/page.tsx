@@ -1,11 +1,27 @@
 import Image from 'next/image';
 import Me from '@/public/me.jpg';
 import Link from 'next/link';
+import Head from 'next/head';
 import SubscribeNewsletter from './components/SubscribeNewsletter';
 
 export default function Home() {
+  const ogImageUrl = '/og-image.jpg'; // Located directly inside the public folder
+  
   return (
     <div className='divide-y divide-gray-100 dark:divide-gray-700'>
+      <Head>
+        <title>Musebecodes - Full Stack Software Craftsman</title>
+        <meta name="description" content="Experienced Full Stack Software Craftsman offering end-to-end solutions for various technology projects." />
+        <meta property="og:title" content="Musebecodes - Full Stack Software Craftsman" />
+        <meta property="og:description" content="Experienced Full Stack Software Craftsman offering end-to-end solutions for various technology projects." />
+        <meta property="og:image" content={ogImageUrl} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Musebecodes - Full Stack Software Craftsman" />
+        <meta name="twitter:description" content="Experienced Full Stack Software Craftsman offering end-to-end solutions for various technology projects." />
+        <meta name="twitter:image" content={ogImageUrl} />
+      </Head>
+
       <div className='space-y-2 pt-5 pb-8 md:space-x-5'>
         <h1 className='text-2xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-2xl md:leading-13'></h1>
       </div>
