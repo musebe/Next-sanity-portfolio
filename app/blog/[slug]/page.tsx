@@ -72,14 +72,15 @@ export default async function SlugPage({
 
         return (
           <p>
-            {value.children.map((child, index) => {
+            {value.children.map((child: any, index: number) => {
+              // Explicitly specify the type of 'child' and 'index'
               if (child.marks && child.marks.includes('code')) {
                 const codeText = child.text;
-                console.log('Original codeText:', codeText); // Debugging step
+                // console.log('Original codeText:', codeText); // Debugging step
 
                 // Remove all backticks
                 const cleanedCodeText = codeText.replace(/`/g, '');
-                console.log('Cleaned codeText:', cleanedCodeText); // Debugging step
+                // console.log('Cleaned codeText:', cleanedCodeText); // Debugging step
 
                 return (
                   <code
