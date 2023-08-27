@@ -71,7 +71,7 @@ export default async function SlugPage({
         }
 
         return (
-          <p>
+          <p className=''>
             {value.children.map((child: any, index: number) => {
               // Explicitly specify the type of 'child' and 'index'
               if (child.marks && child.marks.includes('code')) {
@@ -85,7 +85,7 @@ export default async function SlugPage({
                 return (
                   <code
                     key={index}
-                    className='bg-slate-900 dark:bg-slate-900 text-white dark:text-neutral-90 rounded p-6 w-full inline-block overflow-x-auto'
+                    className='bg-slate-900 dark:bg-gray-300 text-white dark:text-black rounded p-8 w-full inline-block overflow-x-auto font-normal whitespace-nowrap'
                   >
                     {cleanedCodeText}
                   </code>
@@ -187,7 +187,7 @@ export default async function SlugPage({
             </div>
           </header>
           <div className='divide-y divide-gray-200 pb-7 dark:divide-gray-700 xl:divide-y-0'>
-            <div className='prose max-w-none pb-8 pt-10 dark:prose-invert prose-lg'>
+            <div className='prose max-w-none pb-8 pt-10 dark:prose-invert prose-xl '>
               <PortableText
                 value={data.content}
                 components={PortableTextComponent}

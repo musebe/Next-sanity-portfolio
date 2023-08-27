@@ -6,7 +6,7 @@ function SubscribeNewsletter({
   buttonText = '✅ Subscribe Now',
 }) {
   return (
-    <div className='bg-white text-black dark:bg-[#090908] dark:text-white h-full selection:bg-gray-50 dark:selection:bg-gray-800 p-8 rounded-lg text-center'>
+    <div className='bg-white text-black dark:bg-gray-900 dark:text-white h-full selection:bg-gray-50 dark:selection:bg-gray-800 p-8 rounded-lg text-center'>
       <h2 className={`${headingSize} font-bold mb-4`}>{heading}</h2>
       <p className={`text-gray-700 dark:text-gray-300 mb-4 ${paragraphSize}`}>
         {paragraph}
