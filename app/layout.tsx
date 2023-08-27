@@ -1,13 +1,13 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Source_Sans_3} from 'next/font/google';
+import { Roboto_Slab } from 'next/font/google';
 import Navbar from './components/Navbar';
 import { Provider } from './components/Provider';
 
-const source = Source_Sans_3({
+const roboto = Roboto_Slab({
   weight: '400',
-  subsets: ['latin-ext'],
-  display: 'auto',
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body
-        className={`${source.className} bg-white text-black dark:bg-gray-900 dark:text-white h-full selection:bg-gray-50 dark:selection:bg-gray-800 text-lg`}
+        className={`${roboto.className} bg-white text-black dark:bg-gray-900 dark:text-white h-full selection:bg-gray-50 dark:selection:bg-gray-800 text-lg`}
         suppressHydrationWarning={true}
       >
         <Provider>
