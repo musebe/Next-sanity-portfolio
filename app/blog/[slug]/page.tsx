@@ -23,7 +23,8 @@ async function getData(slug: string) {
 }
 
 const cleanCodeText = (text: string) => {
-  return text.replace(/`/g, '');
+  const cleaned = text.replace(/`/g, '');
+  return cleaned;
 };
 
 export default async function SlugPage({
@@ -33,71 +34,75 @@ export default async function SlugPage({
 }) {
   const data = (await getData(params.slug)) as Post;
 
-  const PortableTextComponent = {
-    types: {
-      image: ({ value }: { value: any }) => (
-        <Image
-          src={urlFor(value).url()}
-          alt='Image'
-          className='rounded-lg'
-          width={800}
-          height={800}
-          priority
-        />
-      ),
-      block: ({ value }: { value: any }) => {
-        const text = value.children[0].text;
-        const anchor = `heading-${text.replace(/\s+/g, '-').toLowerCase()}`; // Create an anchor ID
-        if (value.style === 'h1') {
-          return (
-            <h1 id={anchor} className='text-blue-600 dark:text-blue-300'>
-              {text}
-            </h1>
-          );
-        }
-        if (value.style === 'h2') {
-          return (
-            <h2 id={anchor} className='text-green-600 dark:text-green-300'>
-              {text}
-            </h2>
-          );
-        }
-        if (value.style === 'h3') {
-          return (
-            <h3 id={anchor} className='text-purple-600 dark:text-purple-300'>
-              {text}
-            </h3>
-          );
-        }
+ const generateHeaderElement = (tag, anchor, text, className) => {
+   const Tag = tag;
+   return (
+     <Tag id={anchor} className={className}>
+       {text}
+     </Tag>
+   );
+ };
 
-        return (
-          <p className=''>
-            {value.children.map((child: any, index: number) => {
-              // Explicitly specify the type of 'child' and 'index'
-              if (child.marks && child.marks.includes('code')) {
-                const codeText = child.text;
-                // console.log('Original codeText:', codeText); // Debugging step
+ const headerStyles = {
+   h1: 'text-blue-600 dark:text-blue-300',
+   h2: 'text-green-600 dark:text-green-300',
+   h3: 'text-purple-600 dark:text-purple-300',
+ };
 
-                // Remove all backticks
-                const cleanedCodeText = codeText.replace(/`/g, '');
-                // console.log('Cleaned codeText:', cleanedCodeText); // Debugging step
+ const PortableTextComponent = {
+   types: {
+     image: ({ value }) => (
+       <Image
+         src={urlFor(value).url()}
+         alt='Image'
+         className='rounded-lg'
+         width={800}
+         height={800}
+         priority
+       />
+     ),
+     block: ({ value }) => {
+       const text = value.children[0].text;
+       const anchor = `heading-${text.replace(/\s+/g, '-').toLowerCase()}`;
 
-                return (
-                  <code
-                    key={index}
-                    className='bg-slate-900 dark:bg-gray-300 text-white dark:text-black rounded p-8 w-full inline-block overflow-x-auto font-normal whitespace-nowrap'
-                  >
-                    {cleanedCodeText}
-                  </code>
-                );
-              }
-              return child.text;
-            })}
-          </p>
-        );
-      },
-    },
-  };
+       if (headerStyles[value.style]) {
+         return generateHeaderElement(
+           value.style,
+           anchor,
+           text,
+           headerStyles[value.style]
+         );
+       }
+
+       return (
+         <p className=''>
+           {value.children.map((child: any, index: number) => {
+             // Explicitly specify the type of 'child' and 'index'
+             if (child.marks && child.marks.includes('code')) {
+               const codeText = child.text;
+               // console.log('Original codeText:', codeText); // Debugging step
+
+               // Remove all backticks
+               const cleanedCodeText = codeText.replace(/`/g, '');
+               // console.log('Cleaned codeText:', cleanedCodeText); // Debugging step
+
+               return (
+                 <code
+                   key={index}
+                   className='bg-slate-900 dark:bg-gray-300 text-white dark:text-black rounded p-8 w-full inline-block overflow-x-auto font-normal  no-backtick'
+                 >
+                   {cleanedCodeText}
+                 </code>
+               );
+             }
+             return child.text;
+           })}
+         </p>
+       );
+     },
+   },
+ };
+
 
   // Extract headings from PortableText data
   const headings = data
