@@ -34,7 +34,12 @@ export default async function SlugPage({
 }) {
   const data = (await getData(params.slug)) as Post;
 
- const generateHeaderElement = (tag, anchor, text, className) => {
+ const generateHeaderElement = (
+   tag: React.ElementType,
+   anchor: string,
+   text: string,
+   className: string
+ ) => {
    const Tag = tag;
    return (
      <Tag id={anchor} className={className}>
