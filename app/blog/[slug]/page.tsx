@@ -89,7 +89,7 @@ export default async function SlugPage({
                return (
                  <code
                    key={index}
-                   className='bg-slate-900 dark:bg-gray-300 text-white dark:text-black rounded p-8 w-full inline-block overflow-x-auto font-normal  no-backtick'
+                   className='bg-slate-900 dark:bg-gray-300 text-white dark:text-black rounded p-8 w-full inline-block overflow-x-auto font-normal whitespace-pre no-backtick' // Added 'whitespace-pre' and 'no-backtick'
                  >
                    {cleanedCodeText}
                  </code>
