@@ -1,4 +1,4 @@
-import { client } from '../lib/sanity';
+import { client } from './sanity';
 
 export async function fetchAllPosts() {
   const query = `

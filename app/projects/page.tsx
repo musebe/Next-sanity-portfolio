@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Head from 'next/head';
-import { client } from '../lib/sanity';
+import { client } from '../utils/sanity';
 
 interface Data {
   title: string;
@@ -29,7 +29,7 @@ export const revalidate = 60;
 const Projects = async () => {
   const data: Data[] = await getProjects();
 
-//   console.log(data);
+  //   console.log(data);
 
   return (
     <div className='divide-y divide-gray-200 dark:divide-gray-700'>

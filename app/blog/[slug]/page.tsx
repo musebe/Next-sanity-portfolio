@@ -1,113 +1,20 @@
 // Your main component file
 
 import ReadingProgress from '@/app/components/ReadingProgress';
-import SubscribeNewsletter from '@/app/components/SubscribeNewsletter';
 import TableOfContents from '@/app/components/TableOfContent';
-import { Post } from '@/app/lib/interface';
-import { client } from '@/app/lib/sanity';
-import { urlFor } from '@/app/lib/sanityImageUrl';
-import { PortableText } from '@portabletext/react';
-import Head from 'next/head';
-import Image from 'next/image';
-
-async function getData(slug: string) {
-  const query = `*[_type == "post" && slug.current == "${slug}"][0]`;
-  const data = await client.fetch(query, {
-    next: {
-      revalidate: 10, // use 0 to opt out of using cache (Note: this won't have any effect here)
-    },
-  });
-
-  // console.log('Data fetched:', data); // Log the fetched data
-  return data;
-}
-
-const cleanCodeText = (text: string) => {
-  const cleaned = text.replace(/`/g, '');
-  return cleaned;
-};
+import { HeadComponent } from '@/app/components/blog/HeadComponent';
+import { HeaderSection } from '@/app/components/blog/HeaderSection';
+import { MainContent } from '@/app/components/blog/MainContent';
+import { SubscribeNewsletterWrapper } from '@/app/components/blog/SubscribeNewsletterWrapper';
+import PortableTextComponent from '@/app/components/blog/PortableTextComponent';
+import { getData } from '@/app/utils/getData';
 
 export default async function SlugPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const data = (await getData(params.slug)) as Post;
-
- const generateHeaderElement = (
-   tag: React.ElementType,
-   anchor: string,
-   text: string,
-   className: string
- ) => {
-   const Tag = tag;
-   return (
-     <Tag id={anchor} className={className}>
-       {text}
-     </Tag>
-   );
- };
-
- const headerStyles = {
-   h1: 'text-blue-600 dark:text-blue-300',
-   h2: 'text-green-600 dark:text-green-300',
-   h3: 'text-purple-600 dark:text-purple-300',
- };
-
- const PortableTextComponent = {
-   types: {
-     image: ({ value }) => (
-       <Image
-         src={urlFor(value).url()}
-         alt='Image'
-         className='rounded-lg'
-         width={800}
-         height={800}
-         priority
-       />
-     ),
-     block: ({ value }) => {
-       const text = value.children[0].text;
-       const anchor = `heading-${text.replace(/\s+/g, '-').toLowerCase()}`;
-
-       if (headerStyles[value.style]) {
-         return generateHeaderElement(
-           value.style,
-           anchor,
-           text,
-           headerStyles[value.style]
-         );
-       }
-
-       return (
-         <p className=''>
-           {value.children.map((child: any, index: number) => {
-             // Explicitly specify the type of 'child' and 'index'
-             if (child.marks && child.marks.includes('code')) {
-               const codeText = child.text;
-               // console.log('Original codeText:', codeText); // Debugging step
-
-               // Remove all backticks
-               const cleanedCodeText = codeText.replace(/`/g, '');
-               // console.log('Cleaned codeText:', cleanedCodeText); // Debugging step
-
-               return (
-                 <code
-                   key={index}
-                   className='bg-slate-900 dark:bg-gray-300 text-white dark:text-black rounded p-8 w-full inline-block overflow-x-auto font-normal whitespace-pre no-backtick' // Added 'whitespace-pre' and 'no-backtick'
-                 >
-                   {cleanedCodeText}
-                 </code>
-               );
-             }
-             return child.text;
-           })}
-         </p>
-       );
-     },
-   },
- };
-
+  const data = await getData(params.slug);
 
   // Extract headings from PortableText data
   const headings = data
@@ -127,114 +34,40 @@ export default async function SlugPage({
   }));
 
   const readingEmojis = ['📚', '📖', '🎓', '🖋️', '📝']; // Add more emojis as needed
-  const ogImageUrl = urlFor(data.mainImage).url(); // Get the URL for the main image
 
   return (
     <div className='flex flex-col md:flex-row container mx-auto'>
-      <Head>
-        <title>{data.title}</title>
-        <meta name='description' content={data.overview} />
-        <meta property='og:title' content={data.title} />
-        <meta property='og:description' content={data.overview} />
-        <meta property='og:image' content={ogImageUrl} />
-        <meta property='og:type' content='article' />
-        <meta name='twitter:card' content='summary_large_image' />
-        <meta name='twitter:title' content={data.title} />
-        <meta name='twitter:description' content={data.overview} />
-        <meta name='twitter:image' content={ogImageUrl} />
-        <meta property='og:image:width' content='1200' />
-        <meta property='og:image:height' content='630' />
-        <link
-          rel='canonical'
-          href={`https://next-sanity-portfolio-zeta.vercel.app/${params.slug}`}
-        />
-        <html lang='en' />
-      </Head>
+      {/* Head Section */}
+      <HeadComponent data={data} params={params} />
+
       {/* Main Content */}
       <div className='w-full md:w-3/4 md:pr-8 mx-auto'>
         <ReadingProgress />
         <div className='xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700'>
-          <header className='pt-6 xl:pb-6'>
-            <div className='space-y-4 text-center'>
-              <div>
-                <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl sm:leading-10 md:text-3xl md:leading-14 mb-4'>
-                  {data.title}
-                </h1>
-                {/* Main Image */}
-                <Image
-                  src={urlFor(data.mainImage).url()}
-                  alt={data.mainImage.alt}
-                  className='rounded-lg mb-4'
-                  width={1400}
-                  height={700}
-                  priority
-                />
-              </div>
-              <div className='space-y-2'>
-                <p className='text-base font-medium leading-6 text-teal-500 mb-2'>
-                  {new Date(data._createdAt).toISOString().split('T')[0]}
-                </p>
-                <div className='flex flex-wrap justify-center'>
-                  {data.categories.map((category, index) => (
-                    <span
-                      key={index}
-                      className={`text-xs text-white rounded-full px-2 py-1 m-1 ${
-                        index % 2 === 0 ? 'bg-blue-500' : 'bg-green-500'
-                      }`}
-                    >
-                      {category}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-            {/* Table of Contents on Mobile */}
-            <div className='block lg:hidden w-full p-4 mb-4'>
-              <TableOfContents
-                tocItems={tocItems}
-                readingEmojis={readingEmojis}
-              />
-            </div>
-          </header>
-          <div className='divide-y divide-gray-200 pb-7 dark:divide-gray-700 xl:divide-y-0'>
-            <div className='prose max-w-none pb-8 pt-10 dark:prose-invert prose-xl '>
-              <PortableText
-                value={data.content}
-                components={PortableTextComponent}
-              />
-            </div>
+          <HeaderSection data={data} />
+          <div className='block md:hidden w-full p-4 mb-4'>
+            <TableOfContents
+              tocItems={tocItems}
+              readingEmojis={readingEmojis}
+            />
           </div>
+          <MainContent
+            data={data}
+            PortableTextComponent={PortableTextComponent}
+          />
         </div>
       </div>
 
-      {/* Table of Contents on Desktop */}
-      <div className='hidden xl:block xl:w-1/4 p-4 xl:pt-32'>
+      {/* Sidebar for Desktop */}
+      <div className='hidden md:block xl:w-1/4 p-4 xl:pt-32'>
         <TableOfContents tocItems={tocItems} readingEmojis={readingEmojis} />
-        {/* Space between TOC and Subscribe Newsletter */}
         <div className='mt-8'></div>
-        {/* Subscribe Newsletter on Desktop */}
-        <div className='hidden lg:block border-2 rounded-lg border-opacity-50 border-amber-500 p-6 shadow-md'>
-          <SubscribeNewsletter
-            heading='📝 Loved This Article?'
-            headingSize='text-xl'
-            paragraph='Get more articles like this straight into your inbox 📩'
-            paragraphSize='text-xs'
-            buttonText='Subscribe'
-          />
-        </div>
+        <SubscribeNewsletterWrapper />
       </div>
 
-      {/* Subscribe Newsletter on Mobile and Tablets */}
-      <div className='md:hidden lg:hidden w-full p-4'>
-        <div className='border-2 rounded-lg border-opacity-50 border-amber-500 p-6 shadow-md'>
-          <SubscribeNewsletter
-            heading='📝 Loved This Article?'
-            headingSize='text-xl'
-            paragraph='Get more articles like this straight into your inbox 📩'
-            paragraphSize='text-xs'
-            buttonText='Subscribe'
-          />
-        </div>
+      {/* Newsletter Subscription for Mobile */}
+      <div className='md:hidden w-full p-4'>
+        <SubscribeNewsletterWrapper />
       </div>
     </div>
   );

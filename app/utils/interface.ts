@@ -1,9 +1,14 @@
-interface Asset {
+export interface Asset {
   _id: string;
   url: string;
 }
 
-interface MainImage {
+export interface ImageValue {
+  url: string;
+}
+
+
+export interface MainImage {
   asset: Asset;
   alt: string;
   caption: string;
@@ -23,4 +28,15 @@ export interface Post {
     current: string;
   };
   content: any[];
+}
+
+export interface TextChild {
+  text: string;
+  marks?: string[];
+}
+
+export interface BlockValue {
+  _type: 'block';
+  style: string;
+  children: TextChild[];
 }

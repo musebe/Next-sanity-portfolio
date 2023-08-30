@@ -1,13 +1,12 @@
 import Link from 'next/link';
-import { Post } from '../lib/interface';
-import { fetchAllPosts } from '../lib/fetchData';
-
+import { Post } from '../utils/interface';
+import { fetchAllPosts } from '../utils/fetchData';
 
 export const revalidate = 60;
 
 const Blog = async () => {
   const data = (await fetchAllPosts()) as Post[];
-//   console.log('Fetched posts:', data);
+  //   console.log('Fetched posts:', data);
   return (
     <div className='divide-y divide-gray-200 dark:divide-gray-700'>
       <div className='flex justify-center items-center pt-6 pb-8 md:pt-8 md:pb-10'>
