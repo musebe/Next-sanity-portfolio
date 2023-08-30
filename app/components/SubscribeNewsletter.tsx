@@ -1,16 +1,27 @@
-function SubscribeNewsletter({
+import React from 'react';
+import { SubscribeNewsletterProps } from '../utils/interface';
+
+// Define the props type
+
+
+const SubscribeNewsletter: React.FC<SubscribeNewsletterProps> = ({
   heading = '💌 Subscribe to My Newsletter 💌',
   headingSize = 'text-2xl',
   paragraph = 'Stay updated with the latest articles, tips, and tutorials on Full Stack Development, Technical Writing, and Developer Advocacy! 🚀',
   paragraphSize = 'text-base',
   buttonText = '✅ Subscribe Now',
-}) {
+}) => {
   return (
     <div className='bg-white text-black dark:bg-gray-900 dark:text-white h-full selection:bg-gray-50 dark:selection:bg-gray-800 p-8 rounded-lg text-center'>
+      {/* Heading */}
       <h2 className={`${headingSize} font-bold mb-4`}>{heading}</h2>
+
+      {/* Paragraph */}
       <p className={`text-gray-700 dark:text-gray-300 mb-4 ${paragraphSize}`}>
         {paragraph}
       </p>
+
+      {/* Form */}
       <form
         aria-label='Subscribe to Newsletter Form'
         className='flex flex-col items-center'
@@ -33,6 +44,6 @@ function SubscribeNewsletter({
       </form>
     </div>
   );
-}
+};
 
 export default SubscribeNewsletter;

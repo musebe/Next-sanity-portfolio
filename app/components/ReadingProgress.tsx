@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 
 const ReadingProgress: React.FC = () => {
+  // State to hold the scroll percentage
   const [scrollPercentage, setScrollPercentage] = useState<number>(0);
 
+  // Function to handle scroll events
   const handleScroll = () => {
     const totalHeight =
       document.documentElement.scrollHeight - window.innerHeight;
@@ -13,6 +15,7 @@ const ReadingProgress: React.FC = () => {
     setScrollPercentage(scrollPercent);
   };
 
+  // Attach and detach scroll event listener
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {

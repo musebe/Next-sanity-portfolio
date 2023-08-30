@@ -1,13 +1,8 @@
-// TableOfContents component
 import React from 'react';
 import Link from 'next/link';
-import Head from 'next/head';
+import { TableOfContentsProps } from '../utils/interface';
 
-
-interface TableOfContentsProps {
-  tocItems: Array<{ text: string; anchor: string; style: string }>;
-  readingEmojis: string[];
-}
+// Define the props type
 
 const TableOfContents: React.FC<TableOfContentsProps> = ({
   tocItems,
@@ -15,17 +10,19 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
 }) => {
   return (
     <div className='border-2 rounded-lg border-opacity-50 border-amber-500 p-6 shadow-md'>
-      {/* <Head>
-        <style>{`html { scroll-behavior: smooth; }`}</style>
-      </Head> */}
+      {/* Heading */}
       <h3 className='text-lg font-bold text-amber-500 mb-4'>
         Table of Contents
       </h3>
+
+      {/* List of Table of Contents Items */}
       <ul>
         {tocItems.map((item, index) => (
           <li key={index} className='my-2'>
-            <Link href={`#${item.anchor}`} className='hover:text-amber-500'>
-              {readingEmojis[index % readingEmojis.length]} {item.text}
+            <Link href={`#${item.anchor}`}>
+              <span className='hover:text-amber-500'>
+                {readingEmojis[index % readingEmojis.length]} {item.text}
+              </span>
             </Link>
           </li>
         ))}

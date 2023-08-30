@@ -1,22 +1,19 @@
-export interface Asset {
+interface Asset {
   _id: string;
   url: string;
 }
 
-export interface ImageValue {
+interface ImageValue {
   url: string;
 }
 
-
-export interface MainImage {
+interface MainImage {
   asset: Asset;
   alt: string;
   caption: string;
 }
 
-
-
-export interface Post {
+interface Post {
   title: string;
   _createdAt: Date;
   _id: string;
@@ -30,13 +27,37 @@ export interface Post {
   content: any[];
 }
 
-export interface TextChild {
+interface TextChild {
   text: string;
   marks?: string[];
 }
 
-export interface BlockValue {
+interface BlockValue {
   _type: 'block';
   style: string;
   children: TextChild[];
 }
+
+interface SubscribeNewsletterProps {
+  heading?: string;
+  headingSize?: string;
+  paragraph?: string;
+  paragraphSize?: string;
+  buttonText?: string;
+}
+
+interface TableOfContentsProps {
+  tocItems: Array<{ text: string; anchor: string; style: string }>;
+  readingEmojis: string[];
+}
+
+export type {
+  Asset,
+  ImageValue,
+  MainImage,
+  Post,
+  TextChild,
+  BlockValue,
+  SubscribeNewsletterProps,
+  TableOfContentsProps,
+};
