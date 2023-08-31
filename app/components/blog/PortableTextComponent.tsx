@@ -4,6 +4,7 @@ import React from 'react';
 import { BlockValue, ImageValue } from '@/app/utils/interface';
 import { urlFor } from '@/app/utils/sanityImageUrl';
 import Image from 'next/image';
+import TerminalHeader from './TerminalHeader';
 
 type HeaderStyles = {
   [key: string]: string;
@@ -55,29 +56,36 @@ const PortableTextComponent = {
       }
 
       return (
-        <p className=''>
-          {value.children.map((child: any, index: number) => {
-            // Explicitly specify the type of 'child' and 'index'
+        <div className=''>
+          {value.children.map((child: any, index: number, array: any[]) => {
             if (child.marks && child.marks.includes('code')) {
               const codeText = child.text;
-              // console.log('Original codeText:', codeText); // Debugging step
-
-              // Remove all backticks
               const cleanedCodeText = codeText.replace(/`/g, '');
-              // console.log('Cleaned codeText:', cleanedCodeText); // Debugging step
-
               return (
-                <code
-                  key={index}
-                  className='bg-slate-900 dark:bg-gray-300 text-white dark:text-black rounded p-8 w-full inline-block overflow-x-auto font-normal whitespace-pre no-backtick' // Added 'whitespace-pre' and 'no-backtick'
-                >
-                  {cleanedCodeText}
-                </code>
+                <div key={index} className='mb-4'>
+                  <TerminalHeader />
+                  <code className='bg-slate-900 dark:bg-gray-300 text-white dark:text-black rounded-bl-lg rounded-br-lg p-8 w-full inline-block overflow-x-auto code-ide-font text-sm whitespace-pre no-backtick'>
+                    {cleanedCodeText}
+                  </code>
+                </div>
               );
             }
-            return child.text;
+
+            // Check if this is the last text element in a paragraph
+            const isEndOfParagraph =
+              index === array.length - 1 ||
+              (array[index + 1].marks &&
+                array[index + 1].marks.includes('code'));
+
+            return (
+              <span key={index}>
+                {child.text}
+                {isEndOfParagraph && <div className='h-4'></div>}{' '}
+                {/* Tailwind class for vertical spacing */}
+              </span>
+            );
           })}
-        </p>
+        </div>
       );
     },
   },

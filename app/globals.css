@@ -11,3 +11,7 @@ html {
 .no-backtick::after {
   content: none;
 }
+
+.code-ide-font {
+  font-family: 'Fira Code', Monaco, 'Courier New', monospace;
+}
