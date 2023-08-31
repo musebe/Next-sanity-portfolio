@@ -131,4 +131,3 @@ TODOS
 - Og images bug refine
 - Integrate mailchimp  
 - Write Tests
-

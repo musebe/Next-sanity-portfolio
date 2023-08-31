@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BlockValue, ImageValue } from '@/app/utils/interface';
+import { v4 as uuidv4 } from 'uuid'; // Import UUID for generating unique IDs
 import { urlFor } from '@/app/utils/sanityImageUrl';
 import Image from 'next/image';
 import TerminalHeader from './TerminalHeader';
@@ -61,9 +62,14 @@ const PortableTextComponent = {
             if (child.marks && child.marks.includes('code')) {
               const codeText = child.text;
               const cleanedCodeText = codeText.replace(/`/g, '');
+              const uniqueId = uuidv4(); // Generate a unique ID for each code section
+
               return (
                 <div key={index} className='mb-4'>
-                  <TerminalHeader />
+                  <TerminalHeader
+                    textToCopy={cleanedCodeText}
+                    buttonId={uniqueId}
+                  />
                   <code className='bg-slate-900 dark:bg-gray-300 text-white dark:text-black rounded-bl-lg rounded-br-lg p-8 w-full inline-block overflow-x-auto code-ide-font text-sm whitespace-pre no-backtick'>
                     {cleanedCodeText}
                   </code>
@@ -92,3 +98,5 @@ const PortableTextComponent = {
 };
 
 export default PortableTextComponent;
+
+
