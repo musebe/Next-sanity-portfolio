@@ -22,3 +22,10 @@ html {
   border-top-width: 0;
   border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
 }
+
+
+.my-custom-divider {
+  --tw-divide-y-reverse: 1; /* Remove bottom border */
+  border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+  border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
