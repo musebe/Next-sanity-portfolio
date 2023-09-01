@@ -15,3 +15,10 @@ html {
 .code-ide-font {
   font-family: 'Fira Code', Monaco, 'Courier New', monospace;
 }
+
+
+.no-top-border > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-y-reverse: 0;
+  border-top-width: 0;
+  border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
