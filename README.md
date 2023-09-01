@@ -124,10 +124,13 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 TODOS
 
 - Refine code Section ✅
-- Implement copy code to clipboard 
+- Implement copy code to clipboard ✅
 - Sort Articles Based On Categories, Date Posted
 - Add Published on : Date
 - Pagination on Main blog page 
 - Og images bug refine
 - Integrate mailchimp  
 - Write Tests
+
+
+
