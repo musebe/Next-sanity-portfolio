@@ -126,8 +126,8 @@ TODOS
 - Refine code Section ✅
 - Implement copy code to clipboard ✅
 - Sort Articles Based On Categories, Date Posted ✅
-- Add Published on : Date
-- Pagination on Main blog page 
+- Add Published on : Date ✅
+- Pagination on Main blog page - Infinate scroll
 - Og images bug refine
 - Integrate mailchimp  
 - Write Tests
