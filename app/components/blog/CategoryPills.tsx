@@ -41,7 +41,7 @@ const CategoryPills: React.FC<CategoryPillsProps> = ({ allPosts }) => {
         </div>
       )}
 
-      <SmoothScroll speed={0.1}>
+      <SmoothScroll>
         <ul className='space-y-8'>
           {filteredPosts.map((post, index) => (
             <SmoothScrollItem key={post._id}>
