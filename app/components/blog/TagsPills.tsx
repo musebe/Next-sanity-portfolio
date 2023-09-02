@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Post } from '@/app/utils/interface';
 import CategoryPills from './CategoryPills';
-import ResetFilterButton from './ResetFilterButton'; 
+import ResetFilterButton from './ResetFilterButton';
 
 interface TagsPillsProps {
   allPosts: Post[];
@@ -40,30 +40,35 @@ const TagsPills: React.FC<TagsPillsProps> = ({ allPosts }) => {
   );
 
   return (
-    <div className='divide-y divide-gray-200 dark:divide-gray-700 no-top-border'>
-      <div className='flex justify-center items-center flex-col pt-6 pb-8 md:pt-8 md:pb-10'>
-        <div className='overflow-x-auto whitespace-nowrap w-full md:w-auto mt-8 h-[fit-content]'>
-          <div className='inline-block align-baseline pb-3 space-x-2'>
-            {uniqueTags.map((tag, index) => (
-              <span
-                key={index}
-                className={`text-xs px-3 py-1 rounded-full cursor-pointer ${
-                  colors[index % colors.length]
-                }`}
-                onClick={() => handleTagClick(tag)}
-              >
-                {tag}
-              </span>
-            ))}
+    <div id='outer-div-for-scrolling'>
+      <div className='divide-y divide-gray-200 dark:divide-gray-700 no-top-border'>
+        <div className='flex justify-center items-center flex-col pt-6 pb-8 md:pt-8 md:pb-10'>
+          <h1 className='text-3xl md:text-4xl font-extrabold leading-9 tracking-tight text-amber-500 dark:text-gray-100 sm:leading-10 md:leading-12'>
+            📖 DevLife Diaries.
+          </h1>
+          <div className='overflow-x-auto whitespace-nowrap w-full md:w-auto mt-8 h-[fit-content]'>
+            <div className='inline-block align-baseline pb-3 space-x-2'>
+              {uniqueTags.map((tag, index) => (
+                <span
+                  key={index}
+                  className={`text-xs px-3 py-1 rounded-full cursor-pointer ${
+                    colors[index % colors.length]
+                  }`}
+                  onClick={() => handleTagClick(tag)}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
+        <div className='mb-4'>
+          {selectedTag && (
+            <ResetFilterButton resetFilter={() => setSelectedTag('')} />
+          )}
+        </div>
+        <CategoryPills allPosts={filteredPosts} />
       </div>
-      <div className='mb-4'>
-        {selectedTag && (
-          <ResetFilterButton resetFilter={() => setSelectedTag('')} />
-        )}
-      </div>
-      <CategoryPills allPosts={filteredPosts} />
     </div>
   );
 };

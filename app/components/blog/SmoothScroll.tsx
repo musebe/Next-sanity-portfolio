@@ -1,42 +1,55 @@
-import React, { useEffect } from 'react';
+'use client';
 
-interface SmoothScrollProps {
+import React, { useEffect, useRef } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+
+interface SmoothScrollItemProps {
   children: React.ReactNode;
-  speed?: number;
 }
 
-const SmoothScroll: React.FC<SmoothScrollProps> = ({
-  children,
-  speed = 0.1,
-}) => {
+const SmoothScrollItem: React.FC<SmoothScrollItemProps> = ({ children }) => {
+  const controls = useAnimation();
+  const ref = useRef(null);
+
   useEffect(() => {
-    const scrollContainer = document.getElementById('smooth-scroll-container');
-
-    const handleScroll = (e: { deltaY: number; }) => {
-      if (scrollContainer) {
-        if (e.deltaY > 0) {
-          scrollContainer.scrollTop += 20;
-        } else if (e.deltaY < 0) {
-          scrollContainer.scrollTop -= 20;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          controls.start('visible');
         }
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1,
       }
-    };
+    );
 
-    window.addEventListener('wheel', handleScroll);
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
 
     return () => {
-      window.removeEventListener('wheel', handleScroll);
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
     };
-  }, []);
+  }, [controls]);
 
   return (
-    <div
-      id='smooth-scroll-container'
-      style={{ overflowY: 'auto', position: 'relative' }}
+    <motion.div
+      ref={ref}
+      initial='hidden'
+      animate={controls}
+      variants={{
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      transition={{ duration: 0.5 }}
     >
-      <ul className='space-y-8'>{children}</ul>
-    </div>
+      {children}
+    </motion.div>
   );
 };
 
-export default SmoothScroll;
+export default SmoothScrollItem;

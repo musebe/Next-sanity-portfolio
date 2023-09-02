@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import React, { useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
@@ -53,5 +53,3 @@ const SmoothScrollItem: React.FC<SmoothScrollItemProps> = ({ children }) => {
 };
 
 export default SmoothScrollItem;
-
-
