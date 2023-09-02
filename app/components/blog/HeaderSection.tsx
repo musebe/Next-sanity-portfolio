@@ -1,3 +1,4 @@
+import { formatDate } from '@/app/utils/helpers';
 import { Post } from '@/app/utils/interface';
 import { urlFor } from '@/app/utils/sanityImageUrl';
 import Image from 'next/image';
@@ -26,7 +27,10 @@ export const HeaderSection: React.FC<HeaderSectionProps> = ({ data }) => {
         </div>
         <div className='space-y-2'>
           <p className='text-base font-medium leading-6 text-teal-500 mb-2'>
-            {new Date(data._createdAt).toISOString().split('T')[0]}
+            Posted on:{' '}
+            {data._createdAt
+              ? formatDate(new Date(data._createdAt).toISOString())
+              : 'N/A'}
           </p>
           <div className='flex flex-wrap justify-center'>
             {data.categories.map((category, index) => (

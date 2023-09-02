@@ -8,6 +8,7 @@ import { MainContent } from '@/app/components/blog/MainContent';
 import { SubscribeNewsletterWrapper } from '@/app/components/blog/SubscribeNewsletterWrapper';
 import PortableTextComponent from '@/app/components/blog/PortableTextComponent';
 import { getData } from '@/app/utils/getData';
+import BackToArticles from '@/app/components/blog/BackToArticles';
 
 export default async function SlugPage({
   params,
@@ -42,6 +43,10 @@ export default async function SlugPage({
 
       {/* Main Content */}
       <div className='w-full md:w-3/4 md:pr-8 mx-auto'>
+        {/* Adding BackToArticles Component */}
+        <div className='w-full text-left p-4'>
+          <BackToArticles />
+        </div>
         <ReadingProgress />
         <div className='xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700'>
           <HeaderSection data={data} />

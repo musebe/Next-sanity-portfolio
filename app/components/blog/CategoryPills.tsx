@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Post } from '@/app/utils/interface';  // Replace with your actual Post type
 import ResetFilterButton from './ResetFilterButton';  // Adjust the path as needed
+import { formatDate } from '@/app/utils/helpers';
 
 interface CategoryPillsProps {
   allPosts: Post[];
@@ -33,7 +34,7 @@ const CategoryPills: React.FC<CategoryPillsProps> = ({ allPosts }) => {
   return (
     <>
       {selectedCategory && (
-        <div className="mb-4">
+        <div className='mb-4'>
           <ResetFilterButton resetFilter={() => setSelectedCategory('')} />
         </div>
       )}
@@ -54,12 +55,17 @@ const CategoryPills: React.FC<CategoryPillsProps> = ({ allPosts }) => {
                 </a>
                 <div className='mt-2 flex flex-wrap items-center space-x-2 md:space-x-4'>
                   <p className='text-base font-medium leading-6 text-teal-500 mb-2 md:mb-0'>
-                    {new Date(post._createdAt).toISOString().split('T')[0]}
+                    Posted on:{' '}
+                    {post._createdAt
+                      ? formatDate(new Date(post._createdAt).toISOString())
+                      : 'N/A'}
                   </p>
                   {post.categories.map((category, index) => (
                     <span
                       key={index}
                       className={`text-xs px-3 py-1 rounded-full cursor-pointer ${
+                        index === 0 ? 'ml-4' : ''
+                      } ${
                         selectedCategory === category
                           ? 'bg-blue-200 text-blue-800'
                           : colors[index % colors.length]
