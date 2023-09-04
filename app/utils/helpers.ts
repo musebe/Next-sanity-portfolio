@@ -18,7 +18,20 @@ function formatDate(dateString: string): string {
     return `${month.toUpperCase()} ${day}${suffix}, ${year}`;
 }
 
+// utils/calculateReadingTime.ts
+
+function calculateReadingTime(text: string): string {
+    const wordsPerMinute = 250; // Average case.
+    const numberOfWords = text.split(/\s/g).length;
+    const minutes = numberOfWords / wordsPerMinute;
+    const readTime = Math.ceil(minutes);
+    return `${readTime} min read`;
+}
+
+
+
 
 export {
     formatDate,
+    calculateReadingTime 
 };

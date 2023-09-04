@@ -1,5 +1,4 @@
 import './globals.css';
-import type { Metadata } from 'next';
 import { Roboto_Slab } from 'next/font/google';
 import Navbar from './components/Navbar';
 import { Provider } from './components/Provider';
@@ -10,10 +9,19 @@ const roboto = Roboto_Slab({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: 'Musebecodes',
+
+export const metadata = {
+  metadataBase: new URL('https://www.musebecodes.dev'),
+  title: {
+    default: 'Musebecodes',
+    template: `%s | Musebecodes`,
+  },
   description: 'Personal portfolio of Musebe',
+  verification: {
+    google: 'google-site-verification=123123123',
+  },
 };
+
 
 export default function RootLayout({
   children,

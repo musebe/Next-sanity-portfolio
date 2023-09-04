@@ -5,37 +5,10 @@ import Head from 'next/head';
 import SubscribeNewsletter from './components/SubscribeNewsletter';
 
 export default function Home() {
-  const ogImageUrl = '/me.jpg'; // Located directly inside the public folder
+ 
 
   return (
     <div>
-      <Head>
-        <title>Musebecodes - Full Stack Software Craftsman</title>
-        <meta
-          name='description'
-          content='Experienced Full Stack Software Craftsman offering end-to-end solutions for various technology projects.'
-        />
-        <meta
-          property='og:title'
-          content='Musebecodes - Full Stack Software Craftsman'
-        />
-        <meta
-          property='og:description'
-          content='Experienced Full Stack Software Craftsman offering end-to-end solutions for various technology projects.'
-        />
-        <meta property='og:image' content={ogImageUrl} />
-        <meta property='og:type' content='website' />
-        <meta name='twitter:card' content='summary_large_image' />
-        <meta
-          name='twitter:title'
-          content='Musebecodes - Full Stack Software Craftsman'
-        />
-        <meta
-          name='twitter:description'
-          content='Experienced Full Stack Software Craftsman offering end-to-end solutions for various technology projects.'
-        />
-        <meta name='twitter:image' content={ogImageUrl} />
-      </Head>
       <div className='border-b border-gray-100 dark:border-gray-700 pb-10'>
         <div className='space-y-2 pt-5 pb-8 md:space-x-5'>
           <h1 className='text-2xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-2xl md:leading-13'></h1>

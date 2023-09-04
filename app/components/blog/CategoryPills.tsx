@@ -6,6 +6,7 @@ import ResetFilterButton from './ResetFilterButton';
 import { formatDate } from '@/app/utils/helpers';
 import SmoothScroll from './SmoothScroll';
 import SmoothScrollItem from './SmoothScrollItem';
+import ReadingTime from './ReadingTime';
 
 interface CategoryPillsProps {
   allPosts: Post[];
@@ -14,6 +15,12 @@ interface CategoryPillsProps {
 const CategoryPills: React.FC<CategoryPillsProps> = ({ allPosts }) => {
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [totalText, setTotalText] = useState<string>('');
+
+  const appendText = (text: string) => {
+  setTotalText((prevText) => prevText + ' ' + text);
+};
+
 
   useEffect(() => {
     setFilteredPosts(allPosts);
@@ -65,6 +72,7 @@ const CategoryPills: React.FC<CategoryPillsProps> = ({ allPosts }) => {
                           ? formatDate(new Date(post._createdAt).toISOString())
                           : 'N/A'}
                       </p>
+                      {/* <ReadingTime text={post.overview} /> */}
                       {post.categories.map((category, index) => (
                         <span
                           key={index}

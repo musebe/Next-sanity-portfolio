@@ -1,14 +1,39 @@
 // Your main component file
-
+import { Metadata } from 'next';
 import ReadingProgress from '@/app/components/ReadingProgress';
 import TableOfContents from '@/app/components/TableOfContent';
-import { HeadComponent } from '@/app/components/blog/HeadComponent';
 import { HeaderSection } from '@/app/components/blog/HeaderSection';
 import { MainContent } from '@/app/components/blog/MainContent';
 import { SubscribeNewsletterWrapper } from '@/app/components/blog/SubscribeNewsletterWrapper';
 import PortableTextComponent from '@/app/components/blog/PortableTextComponent';
-import { getData } from '@/app/utils/getData';
 import BackToArticles from '@/app/components/blog/BackToArticles';
+import { getData } from '@/app/utils/fetchData';
+
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  // Fetch the post data
+  const post = await getData(params.slug);
+  
+  // Check if the post exists
+  if (!post) {
+    return {
+      title: 'Not Found',
+      description: 'The page is not found',
+    };
+  }
+
+  // Generate metadata
+  return {
+    title: post.title,
+    description: post.overview, 
+    alternates: {
+      canonical: `/post/${post.slug.current}`, 
+      languages: {
+        'en-US': `en-US/post/${post.slug.current}`, 
+      },
+    },
+  };
+}
 
 export default async function SlugPage({
   params,
@@ -38,8 +63,6 @@ export default async function SlugPage({
 
   return (
     <div className='flex flex-col md:flex-row container mx-auto'>
-      {/* Head Section */}
-      <HeadComponent data={data} params={params} />
 
       {/* Main Content */}
       <div className='w-full md:w-3/4 md:pr-8 mx-auto'>

@@ -1,4 +1,5 @@
 interface Asset {
+  _ref: any;
   _id: string;
   url: string;
 }
@@ -14,6 +15,7 @@ interface MainImage {
 }
 
 interface Post {
+  _updatedAt: string | number | Date;
   title: string;
   _createdAt: Date;
   _id: string;
@@ -51,6 +53,11 @@ interface TableOfContentsProps {
   readingEmojis: string[];
 }
 
+interface PortableTextComponentProps {
+  appendText: (text: string) => void;
+}
+
+
 export type {
   Asset,
   ImageValue,
@@ -60,4 +67,5 @@ export type {
   BlockValue,
   SubscribeNewsletterProps,
   TableOfContentsProps,
+  PortableTextComponentProps
 };
