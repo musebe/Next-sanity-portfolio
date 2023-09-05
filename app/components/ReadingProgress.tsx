@@ -26,6 +26,7 @@ const ReadingProgress: React.FC = () => {
   return (
     <div className='fixed top-0 left-0 z-50 w-full'>
       <div
+        data-testid='progress-bar'
         className='bg-gradient-to-r from-blue-400 to-purple-500'
         style={{ width: `${scrollPercentage}%`, height: '0.25rem' }}
       ></div>

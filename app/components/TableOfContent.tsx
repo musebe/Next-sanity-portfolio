@@ -9,7 +9,10 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
   readingEmojis,
 }) => {
   return (
-    <div className='border-2 rounded-lg border-opacity-50 border-amber-500 p-6 shadow-md'>
+    <div
+      className='border-2 rounded-lg border-opacity-50 border-amber-500 p-6 shadow-md'
+      data-testid='toc-container'
+    >
       {/* Heading */}
       <h3 className='text-lg font-bold text-amber-500 mb-4'>
         Table of Contents
