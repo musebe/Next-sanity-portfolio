@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Me from '@/public/me.jpg';
 import Link from 'next/link';
-import Head from 'next/head';
 import SubscribeNewsletter from './components/SubscribeNewsletter';
 
 export default function Home() {
