@@ -107,6 +107,19 @@ SANITY_PROJECT_ID=your_project_id
 SANITY_DATASET=your_dataset_name
 ```
 
+5. For Newsletter Subscription We use Mailchimp.Define following variables in your .env.local file.
+
+```env
+MAILCHIMP_API_KEY=_________________
+MAILCHIMP_API_SERVER=_______________
+MAILCHIMP_AUDIENCE_ID=______________
+```
+## Used Packages
+
+- formik
+- react-confetti
+- yup
+- framer-motion
 ## Deploy
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/your-nextjs-portfolio)
@@ -129,7 +142,7 @@ TODOS
 - Add Published on : Date ✅
 - Pagination on Main blog page - Infinite scroll ✅
 - Og images bug refine ✅
-- Integrate mailchimp  
+- Integrate mailchimp  ✅
 - Write Tests
 
 
