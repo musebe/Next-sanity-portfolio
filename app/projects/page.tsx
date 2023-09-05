@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Head from 'next/head';
+import { Metadata } from 'next';
 import { client } from '../utils/sanity';
 
 interface Data {
@@ -24,7 +24,11 @@ async function getProjects() {
   return data;
 }
 
-export const revalidate = 60;
+export const metadata: Metadata = {
+  title: 'Projects',
+  description: 'Musebecodes Projects',
+}
+
 
 const Projects = async () => {
   const data: Data[] = await getProjects();
@@ -33,26 +37,6 @@ const Projects = async () => {
 
   return (
     <div className='divide-y divide-gray-200 dark:divide-gray-700'>
-      <Head>
-        <title>Code Ventures - My Projects</title>
-        <meta
-          name='description'
-          content='Showcase of my coding quests and innovations.'
-        />
-        <meta property='og:title' content='Code Ventures - My Projects' />
-        <meta
-          property='og:description'
-          content='Showcase of my coding quests and innovations.'
-        />
-        <meta property='og:type' content='website' />
-        <meta name='twitter:card' content='summary_large_image' />
-        <meta name='twitter:title' content='Code Ventures - My Projects' />
-        <meta
-          name='twitter:description'
-          content='Showcase of my coding quests and innovations.'
-        />
-        {/* Add og:image and twitter:image meta tags if you have a specific image to show */}
-      </Head>
       <div className='flex flex-col justify-center items-center pt-6 pb-8 md:pt-8 md:pb-10'>
         <h1 className='text-3xl md:text-4xl font-extrabold leading-9 tracking-tight text-amber-500 dark:text-gray-100 sm:leading-10 md:leading-12'>
           🛠️ Code Ventures
